@@ -25,6 +25,8 @@ resources:
               custom_subject: Dashboard Refresh
             warehouse_id: 75cc6c9a51b7b1ef
             dashboard_id: ${resources.dashboards.earthquake_monitor.id}
+      run_as:
+        service_principal_name: ${var.spn_id}
       queue:
         enabled: true
       parameters:
