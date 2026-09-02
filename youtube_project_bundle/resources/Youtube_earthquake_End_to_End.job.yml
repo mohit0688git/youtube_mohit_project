@@ -1,0 +1,33 @@
+resources:
+  jobs:
+    Youtube_earthquake_End_to_End:
+      name: Youtube_earthquake_End_to_End
+      tasks:
+        - task_key: ingestion_bronze
+          notebook_task:
+            notebook_path: ../src/notebooks/ingestion_bronze.ipynb
+            base_parameters:
+              catalog_name: ${var.catalog}
+            source: WORKSPACE
+        - task_key: Bronze_silver
+          depends_on:
+            - task_key: ingestion_bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.bronze_silver_earthquake_etl.id}
+            full_refresh: true
+        - task_key: dashboard
+          depends_on:
+            - task_key: Bronze_silver
+          dashboard_task:
+            subscription:
+              subscribers:
+                - user_name: mohit.saxena8787@gmail.com
+              custom_subject: Dashboard Refresh
+            warehouse_id: 75cc6c9a51b7b1ef
+            dashboard_id: ${resources.dashboards.earthquake_monitor.id}
+      queue:
+        enabled: true
+      parameters:
+        - name: catalog_name
+          default: ${var.catalog}
+      performance_target: PERFORMANCE_OPTIMIZED
