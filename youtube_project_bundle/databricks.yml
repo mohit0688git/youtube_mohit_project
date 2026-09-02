@@ -15,6 +15,8 @@ variables:
     description: The schema to use
   warehouse_id:
     description: The warehouse to use
+  spn_id:
+    description: spn id
 
 targets:
   dev:
@@ -30,6 +32,7 @@ targets:
       catalog: youtube_dev
       schema: dev
       warehouse_id: 75cc6c9a51b7b1ef
+      spn_id: 068b6077-6f4c-41ef-a1a3-8d64ae2d65bf
     presets:
       artifacts_dynamic_version: true
   prod:
@@ -42,6 +45,9 @@ targets:
       catalog: youtube_prod
       schema: prod
       warehouse_id: 75cc6c9a51b7b1ef
+      spn_id: 068b6077-6f4c-41ef-a1a3-8d64ae2d65bf
     permissions:
       - user_name: mohit.databricks0688@gmail.com
+        level: CAN_MANAGE
+      - group_name: earthquake_prod_writer
         level: CAN_MANAGE

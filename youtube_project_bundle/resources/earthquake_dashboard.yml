@@ -4,4 +4,5 @@ resources:
       display_name: 'Youtube_EarthQuake_Dashboard_prod'
       file_path: ../src/dashboard/Youtube_EarthQuake_Dashboard.lvdash.json
       warehouse_id: ${var.warehouse_id}
+      
      
